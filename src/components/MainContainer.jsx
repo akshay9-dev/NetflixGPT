@@ -8,7 +8,7 @@ const MainContainer = () => {
 
   if (!movies) return;
 
-  const mainMovie = movies[5];
+  const mainMovie = movies[6];
 //   console.log(mainMovie);
 
   const { original_title, overview } = mainMovie;
@@ -16,7 +16,7 @@ const MainContainer = () => {
   return (
     <div>
       <VideoTitle title={original_title} overview={overview} />
-      <VideoBackground movieId={822119} />
+      <VideoBackground movieId={549509} />
     </div>
   );
 };

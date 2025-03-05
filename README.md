@@ -7,14 +7,14 @@
 - Login Form
 - Sign up form
 - Form validation
-- useRef Hook 
+- useRef Hook
 - firebase setup
 - Create a signup user account
 - Implement Sign In user API
 - Created Redux store with slice user
 - Implemented sign out
 - update profile
-- fetch movie from TMDB. 
+- fetch movie from TMDB.
 - Fix bug of Sign up user display name
 - Fix bug of if the user is not logged in Redireect/browse page to login page and vice-versa
 - unsubscribed to the onAuthStateChanged callback.
@@ -29,7 +29,13 @@
 - updated store with trailer video data
 - Embedded thye youtube video and make it autoplay and mute
 - Tailwind classed to make main container look awesome
- 
+- Build secondary component
+- Built Movie List
+- Built Movie Card
+- TMDB CDN url
+- Made the Browser page amazing with tailwing CSS
+- usePopularMovies and other custom hooks
+
 # Features
 
 - Login/Sign up
