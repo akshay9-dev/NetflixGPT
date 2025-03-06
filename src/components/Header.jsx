@@ -48,19 +48,23 @@ const Header = () => {
   };
 
   return (
-    <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">
-      <img className="w-44" src={LOGO_URL} alt="logo" />
+    <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex flex-col md:flex-row items-center justify-between">
+      <img className="w-32 mx-auto md:mx-0" src={LOGO_URL} alt="logo" />
       {user && (
-        <div className="flex p-2 gap-4">
+        <div className=" flex items-center p-2 gap-2 md:gap-4">
           <button
-            className="py-2 px-4 bg-purple-800 text-white rounded-lg mx-4 my-2 cursor-pointer"
+            className="absolute md:relative left-0  py-1 md:py-2 px-2 md:px-4 bg-purple-800 text-white rounded-lg mx-2 md:mx-4 my-2 cursor-pointer text-xs md:text-lg -mt-16 md:mt-4"
             onClick={handleGptSearchClick}>
             {showGptSearch ? "Homepage" : "GPT Search"}
           </button>
-          <img className="w-12 h-12 rounded" alt="user icon" src={IMAGE_URL} />
+          <img
+            className="absolute md:relative right-20 md:right-0 w-8 h-8 md:w-12 md:h-12 rounded -mt-18 md:mt-0"
+            alt="user icon"
+            src={IMAGE_URL}
+          />
 
           <button
-            className="font-bold text-white mb-3 cursor-pointer"
+            className="absolute md:relative right-4 md:right-0 font-bold text-white md:mt-4 mb-3 cursor-pointer  text-xs md:text-lg -mt-15"
             onClick={handleSignOut}>
             Sign Out
           </button>

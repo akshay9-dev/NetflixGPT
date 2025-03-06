@@ -13,7 +13,7 @@ const MovieList = ({ title, movies }) => {
         options={{
           type: "slide", // Can be 'loop' or 'slide'
           perPage: 7, // Number of visible slides
-          perMove: 4, // How many slides to move on navigation
+          perMove: 2, // How many slides to move on navigation
           gap: "", // Space between slides
           pagination: false, // Hide pagination dots
           arrows: true, // Show navigation arrows
@@ -24,13 +24,13 @@ const MovieList = ({ title, movies }) => {
             640: { perPage: 2 },
           },
         }}
-        className="w-full shadow-2xl"
-      >
+        className="w-full shadow-2xl ">
         {movies?.map((movie) => (
           <SplideSlide key={movie.id}>
             <MovieCard posterPath={movie.poster_path} />
           </SplideSlide>
         ))}
+
       </Splide>
     </div>
   );
