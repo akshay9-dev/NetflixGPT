@@ -35,6 +35,10 @@
 - TMDB CDN url
 - Made the Browser page amazing with tailwing CSS
 - usePopularMovies and other custom hooks
+- GPT Search feature
+- GPT search page
+- GPT search bar
+- Integrate GPT API
 
 # Features
 
