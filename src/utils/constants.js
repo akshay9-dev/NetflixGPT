@@ -19,5 +19,5 @@ export const BG_URL =
 
 export const OPENAI_KEY = import.meta.env.VITE_OPENAI_KEY;
 
-export const GEMINI_KEY = import.meta.env.VITE_GEMINI_KEY;
+// export const GEMINI_KEY = import.meta.env.VITE_GEMINI_KEY;
 

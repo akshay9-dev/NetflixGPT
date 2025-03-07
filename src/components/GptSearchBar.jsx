@@ -1,19 +1,20 @@
 import React, { useRef } from "react";
 import openai from "../utils/openai";
 import { useDispatch } from "react-redux";
+import { API_OPTION } from "../utils/constants";
+import { addGptMovieResult } from "../utils/gptSlice";
 
 const GptSearchBar = () => {
   const searchText = useRef(null);
+  const dispatch = useDispatch();
 
   // Search movie in TMDB
   const searchMovieTMDB = async (movie) => {
-    const dispatch = useDispatch();
-
     const data = await fetch(
       "https://api.themoviedb.org/3/search/movie?query=" +
         movie +
         "&include_adult=false&language=en-US&page=1",
-      options
+      API_OPTION
     );
 
     const json = await data.json();
@@ -39,17 +40,21 @@ const GptSearchBar = () => {
     }
 
     console.log(gptResults.choices[0]?.message?.content);
-    const gptMovies = gptResults.choices[0]?.message?.content.split(","); //This will gve array of movie.
+    //It Follows, The Conjuring, Hereditary, Get Out, A Quiet Place
+
+    const gptMovies = gptResults.choices[0]?.message?.content.split(","); //This will gve array of movie. 
+//[It Follows, The Conjuring, Hereditary, Get Out, A Quiet Place]
+
 
     //for each movie i will  search TMDB API
-    const data = gptMovies.map((movie) => searchMovieTMDB(movie));
+    const promiseArray = gptMovies.map((movie) => searchMovieTMDB(movie));
 
     const tmdbResults = await Promise.all(promiseArray);
 
     console.log(tmdbResults);
 
     dispatch(
-      addGptMovieResult({ movieNames: gptMovies, movieResults: tmdbResults })
+      addGptMovieResult ({ movieNames: gptMovies, movieResults: tmdbResults })
     );
   };
 
