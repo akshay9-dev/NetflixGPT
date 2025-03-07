@@ -23,41 +23,49 @@ const GptSearchBar = () => {
   };
 
   const handleGptSearchClick = async () => {
+    if (!openai || !openai.chat) {
+      setIsLoading(false);
+      return;
+    }
     setIsLoading(true);
 
-    console.log(searchText.current.value);
-    //Make an api call to openai(GPT API) to get the movie results
+    try {
+      console.log(searchText.current.value);
+      //Make an api call to openai(GPT API) to get the movie results
 
-    const gptQuery =
-      "Act as a movie recommendation system and suggest some movies for the query :" +
-      searchText.current.value +
-      ". only give me names of 5 movies, movies comma saperate like the example result given ahed. Example Result: Dune 2, Shole, Golmaal, Koi Mil Gaya";
+      const gptQuery =
+        "Act as a movie recommendation system and suggest some movies for the query :" +
+        searchText.current.value +
+        ". only give me names of 5 movies, movies comma saperate like the example result given ahed. Example Result: Dune 2, Shole, Golmaal, Koi Mil Gaya";
 
-    const gptResults = await openai.chat.completions.create({
-      messages: [{ role: "user", content: gptQuery }],
-      model: "gpt-3.5-turbo",
-    });
+      const gptResults = await openai.chat.completions.create({
+        messages: [{ role: "user", content: gptQuery }],
+        model: "gpt-3.5-turbo",
+      });
 
-    if (!gptResults.choices) {
-      console.log("Error fetching");
+      if (!gptResults.choices) {
+        console.log("Error fetching");
+      }
+
+      console.log(gptResults.choices[0]?.message?.content);
+      //It Follows, The Conjuring, Hereditary, Get Out, A Quiet Place
+
+      const gptMovies = gptResults.choices[0]?.message?.content.split(","); //This will gve array of movie.
+      //[It Follows, The Conjuring, Hereditary, Get Out, A Quiet Place]
+
+      //for each movie i will  search TMDB API
+      const promiseArray = gptMovies.map((movie) => searchMovieTMDB(movie));
+
+      const tmdbResults = await Promise.all(promiseArray);
+
+      console.log(tmdbResults);
+
+      dispatch(
+        addGptMovieResult({ movieNames: gptMovies, movieResults: tmdbResults })
+      );
+    } catch (error) {
+      console.error("Error fetching OpenAI response:", error);
     }
-
-    console.log(gptResults.choices[0]?.message?.content);
-    //It Follows, The Conjuring, Hereditary, Get Out, A Quiet Place
-
-    const gptMovies = gptResults.choices[0]?.message?.content.split(","); //This will gve array of movie.
-    //[It Follows, The Conjuring, Hereditary, Get Out, A Quiet Place]
-
-    //for each movie i will  search TMDB API
-    const promiseArray = gptMovies.map((movie) => searchMovieTMDB(movie));
-
-    const tmdbResults = await Promise.all(promiseArray);
-
-    console.log(tmdbResults);
-
-    dispatch(
-      addGptMovieResult({ movieNames: gptMovies, movieResults: tmdbResults })
-    );
     setIsLoading(false);
   };
 
